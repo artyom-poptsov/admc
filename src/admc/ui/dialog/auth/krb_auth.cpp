@@ -274,7 +274,7 @@ void KrbAuthDialog::authenticate(const QString &principal) {
         bool delete_creds =
             (! settings_are_creds_saved(client->current_principal()));
         logout(delete_creds);
-        client->logout(delete_creds);
+        client->logout(true);
     }
 
     bool ticket_active =

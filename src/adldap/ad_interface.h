@@ -114,6 +114,7 @@ public:
     static void set_cert_strategy(const CertStrategy strategy);
     static void set_domain_is_default(const bool is_default);
     static void set_custom_domain(const QString &domain);
+    static bool reset_smb_context();
 
     bool is_connected() const;
     QList<AdMessage> messages() const;

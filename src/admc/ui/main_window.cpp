@@ -627,6 +627,9 @@ void MainWindow::init_on_connect(AdInterface &ad) {
 void MainWindow::setup_authentication_dialog() {
     auth_dialog = new KrbAuthDialog(this, krb5_client, default_principal);
     connect(auth_dialog, &KrbAuthDialog::authenticated, this, [this]() {
+        if (! AdInterface::reset_smb_context()) {
+            return;
+        }
         AdInterface ad;
         if (!ad.is_connected()) {
             ui->console->clear_scope_tree();

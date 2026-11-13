@@ -124,6 +124,21 @@ void get_auth_data_fn(const char *pServer,
     Q_UNUSED(maxLenPassword);
 }
 
+/**
+ * Re-create the SMB context.
+ *
+ * @return True if a new SMB context successfully created, false otherwise.
+ */
+bool AdInterface::reset_smb_context() {
+    SMBContext smb_context;
+    if (! smb_context.is_valid()) {
+        return false;
+    }
+
+    AdInterfacePrivate::s_smb_context = std::move(smb_context);
+    return true;
+}
+
 QString AdInterface::find_domain_controller() const {
     const QList<QString> dc_list = get_domain_hosts(d->domain, QString());
     if (dc_list.isEmpty()) {
@@ -2910,3 +2925,4 @@ QString AdMessage::text() const {
 AdMessageType AdMessage::type() const {
     return m_type;
 }
+
